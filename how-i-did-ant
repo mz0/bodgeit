@@ -1,0 +1,24 @@
+apt-get install ant
+mkdir -p build/WEB-INF/classes
+TODO: modify build.xml to make ant do 'mkdir -p build/WEB-INF/classes'
+>> false start >>>
+~/ews2/bodgeit$ ant deploy
+Buildfile: /home/mz0/ews2/bodgeit/build.xml
+
+compile:
+    [javac] /home/mz0/ews2/bodgeit/build.xml:26: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+
+build:
+     [copy] Copying 55 files to /home/mz0/ews2/bodgeit/build
+      [war] Building war: /home/mz0/ews2/bodgeit/build/bodgeit.war
+      [war] Warning: selected war files include a second WEB-INF/web.xml which will be ignored.
+      [war] The duplicate entry is at /home/mz0/ews2/bodgeit/build/WEB-INF/web.xml
+      [war] The file that will be used is /home/mz0/ews2/bodgeit/root/WEB-INF/web.xml
+
+deploy:
+     [copy] Copying 1 file to /home/mz0/ews2/bodgeit/~/tomcat/webapps
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+>>>
+rm -rf \~/
