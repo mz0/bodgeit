@@ -1,7 +1,7 @@
 <project basedir="." default="compile">
 
-	<!-- This file contains all of the environment specific configuration, change it for your setup -->
-    <property file="local.properties"/>
+	<!-- environment specific configuration, change it for your setup -->
+	<property file="local.properties"/>
 	<dirname file="${ant.file}" property="bodgeit.home"/>
 
 	<path id="java.classpath">
@@ -22,10 +22,8 @@
 	</target>
 		
 
-	<!-- Compile all of the source code -->
 	<target name="compile">
-		<!-- Compile the java code -->
-		<javac target="1.5" destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" />
+		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" />
 	</target>
 
 	<target name="build" depends="compile">
