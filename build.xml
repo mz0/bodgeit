@@ -23,6 +23,7 @@
 		
 
 	<target name="compile">
+		<mkdir dir="build/WEB-INF/classes"/>
 		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" />
 	</target>
 

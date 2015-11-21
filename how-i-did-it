@@ -80,3 +80,6 @@ curl -L -o ZAPdw.zip https://github.com/zaproxy/zaproxy/releases/download/w2015-
 100 87.9M  100 87.9M    0     0  1915k      0  0:00:46  0:00:46 --:--:-- 1297k
 unzip ZAPdw.zip
 mv ZAP_D-2015-11-16/ ZAPdw
+~/zap2/zap.sh , accept license, no session, tools-options-local proxy - port 8090
+INFO: https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions.xml
+
