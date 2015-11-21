@@ -1,0 +1,5 @@
+ecb4791 app runs on Tomcat started from Eclipse.
+- corrected web.xml for 2.4
+- erronous imports in .jsp removed
+- general clean ups
+- a note on initial Git checkout into an empty Eclipse Dyn Web project
