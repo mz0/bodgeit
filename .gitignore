@@ -1,4 +1,4 @@
-build/classes
-.classpath
 .project
 .settings
+build/classes
+root/META-INF

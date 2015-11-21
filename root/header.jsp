@@ -1,6 +1,4 @@
 <%@ page import="java.math.*" %>
-<%@ page import="java.servlet.*" %>
-<%@ page import="java.servlet.http.*" %>
 <%@ page import="java.sql.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
 <html>
@@ -18,21 +16,22 @@
 <table width="80%" class="border">
 <tr BGCOLOR=#C3D9FF>
 <td align="center" colspan="6">
-<H1>The BodgeIt Store</H1>
-<table width="100%" class=\"noborder\">
-<tr BGCOLOR=#C3D9FF>
-<td align="center" width="30%">&nbsp;</td>
-<td align="center" width="40%">We bodge it, so you dont have to!</td>
-<td align="center" width="30%" style="text-align: right" >
-<%
-	if (username != null) {
-		out.println("User: <a href=\"password.jsp\">" + username + "</a>");
-	} else {
-		out.println("Guest user");
-	}
-%>
-</tr>
-</table>
+	<H1>The BodgeIt Store</H1>
+	<table width="100%" class="noborder">
+	<tr BGCOLOR=#C3D9FF>
+	<td align="center" width="30%">&nbsp;</td>
+	<td align="center" width="40%">We bodge it, so you dont have to!</td>
+	<td align="center" width="30%" style="text-align: right" >
+	<%
+		if (username != null) {
+			out.println("User: <a href=\"password.jsp\">" + username + "</a>");
+		} else {
+			out.println("Guest user");
+		}
+	%>
+	</td>
+	</tr>
+	</table>
 </td>
 </tr>
 <tr>

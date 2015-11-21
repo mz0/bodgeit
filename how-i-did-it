@@ -1,0 +1,15 @@
+(http://stackoverflow.com/questions/2411031/how-do-i-clone-into-a-non-empty-directory http://stackoverflow.com/a/18999726)
+git init
+
+
+git remote add origin https://github.com/mz0/bodgeit.git
+
+git fetch
+
+Receiving objects: 100% (326/326), 104.96 MiB | 5.28 MiB/s, done.
+From https://github.com/mz0/bodgeit
+ * [new branch]      master     -> origin/master
+ * [new branch]      wiki       -> origin/wiki
+
+
+git checkout -t origin/master
