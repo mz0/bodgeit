@@ -1,5 +1,5 @@
 ecb4791 app runs on Tomcat started from Eclipse.
-- corrected web.xml for 2.4
+- corrected web.xml for Servlet 2.4 XSD (http://stackoverflow.com/questions/4156919/problem-while-upgrading-web-xml-to-2-4-from-2-3)
 - erronous imports in .jsp removed
 - general clean ups
-- a note on initial Git checkout into an empty Eclipse Dyn Web project
+- how-i-did-t: a note on initial Git checkout into an empty Eclipse Dyn Web project

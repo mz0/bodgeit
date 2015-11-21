@@ -13,3 +13,60 @@ From https://github.com/mz0/bodgeit
 
 
 git checkout -t origin/master
+
+(http://stackoverflow.com/questions/7927230/remove-directory-from-remote-repository-after-adding-them-to-gitignore http://stackoverflow.com/a/7927283)
+git rm -r --cached build/*
+git commit -m 'Remove the now ignored "build/" contents'
+
+git remote set-url --push origin git@github.com:mz0/bodgeit.git
+
+==========================================================================================================================================
+Different git Push & Pull(fetch) URLs
+-------------------------------------
+Ok, now this seems to be very easy and very useful technique while forking someones repo, but I always spend a lot of time searching how to do it.
+When you're forking someone's repo to add some features to it, you want to pull(fetch) from a main repository and push into your's (forked one). Now git gives you this option from the box.
+
+git remote -v
+
+origin git@github.com:User/forked.git (fetch)
+origin git@github.com:User/forked.git (push)
+
+As you can see the remote origin has 2 urls, one with fetch label and one with push. This means that you can fetch and push to different urls while using the same remote.
+
+Now how to do it:
+First of all you need to set the remotes url to the one of main repository (the one you forked from):
+git remote set-url origin git://github.com/chief/global.git
+
+Then you set the push url of that remote to your's (forked) repo: 
+git remote set-url --push origin git@github.com:User/forked.git
+
+Yeah, it's weird that you can't set the different pull url by itself, just a push one. Anyways, now we have our awesome remote config:
+
+git remote -v
+origin git://github.com/chief/global.git (fetch)
+origin git@github.com:User/forked.git (push)
+
+There is also a shorter way to do this.
+
+You can edit a .git/config file. When you'll first open it (whiteout making all the remotes dance described above) you should see something like this:
+
+...
+[remote "origin"]
+ fetch = +refs/heads/*:refs/remotes/origin/*
+ url = git@github.com:User/forked.git
+...
+
+Now all you have to do is change url to value to the repo you've forked from, and add a pushurl variable with the value of your's repo. You'r config with now look like this:
+
+...
+[remote "origin"]
+ fetch = +refs/heads/*:refs/remotes/origin/*
+ url = git://github.com/chief/global.git
+ pushurl = git@github.com:User/forked.git
+...
+
+That's all. From now on all your pull/fetch requests to origin will get the latest updates from the main repository and all push requests to origin will update your forked repository. Happy forking!
+Posted 29th May 2012 by Yuriy Tymchuk
+
+http://webcache.googleusercontent.com/search?q=cache:wTe_PiJg_JgJ:sleepycoders.blogspot.com/2012/05/different-git-push-pullfetch-urls.html
+==========================================================================================================================================
