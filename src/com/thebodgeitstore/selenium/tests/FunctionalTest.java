@@ -1,21 +1,7 @@
 /*
- * The BodgeIt Store and its related class files.
- *
- * The BodgeIt Store is a vulnerable web application suitable for pen testing
- *
  * Copyright 2011 psiinon@gmail.com
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * http://www.apache.org/licenses/LICENSE-2.0
  */
 package com.thebodgeitstore.selenium.tests;
 
@@ -27,22 +13,23 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
 
-/*
- * Note that this is an example of how to use ZAP with Selenium tests,
- * not a good example of how to write good Selenium tests!
- */
+//INFO this is not an example of a good Selenium test!
+//FIXME (mz0) does not work for me.
 public class FunctionalTest extends SeleneseTestCase {
 
 	private WebDriver driver;
 	private String site = "http://localhost:8080/bodgeit/";
 	
 	public void setUp() throws Exception {
-		String target = System.getProperty("zap.targetApp");
+		String propTgt="zap.targetApp";
+		String target = System.getProperty(propTgt);
 		if (target != null && target.length() > 0) {
-			// Theres an override
 			site = target;
+			//("Site supplied in "+propTgt+":"+site);
+		} else {
+			//TODO proper messaging/logging
+			//("No site supplied in "+propTgt);
 		}
-		
 		this.setDriver(new FirefoxDriver());
 	}
 	
@@ -52,7 +39,6 @@ public class FunctionalTest extends SeleneseTestCase {
 		} catch (InterruptedException e) {
 			// Ignore
 		}
-		
 	}
 	
 	public void checkMenu(String linkText, String page) {

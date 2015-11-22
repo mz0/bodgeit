@@ -24,7 +24,7 @@ f837d0b
 - added .project to simplify importing Git folder into Eclipse
 - 'ant 'test' warns of multiple 'ant.jar' found. 'git rm lib/ant.jar'
 
-??????
+c279a16
 - suspecting missing junit.jar and ant-junit.jar the causes of failng 'ant test'
 - a cryptic URLClassLoader ClassNotFound exception may mean it (in build/tests/TEST-*)
 - apt-get install junit did not help
