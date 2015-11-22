@@ -12,12 +12,12 @@
 	</path>
 
 	<target name="hack">
-		<echo message="file=$(ant.file) home=${ant.home} bodge=${bodgeit.home}"/>
+		<echo message="file=${ant.file} home=${ant.home} bodge=${bodgeit.home}"/>
 	</target>
 
 	<target name="compile">
 		<mkdir dir="build/WEB-INF/classes"/>
-		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" />
+		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" source="1.7" debug="on"/>
 	</target>
 
 	<target name="clean"> <delete dir="build"/> </target>

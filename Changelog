@@ -17,9 +17,17 @@ cc8ba20
 - .gitignore cleaned up
 - small meta-doc fixes
 
-??????
+f837d0b
 - added 'mkdir build/tests' to 'build' target to cater for 'test' target 
 - (currently 'ant test' fails. Logs are in build/tests)
 -'test' should depend on 'build'; 'test' should show in 'ant -p' - added 'description'
 - added .project to simplify importing Git folder into Eclipse
 - 'ant 'test' warns of multiple 'ant.jar' found. 'git rm lib/ant.jar'
+
+??????
+- suspecting missing junit.jar and ant-junit.jar the causes of failng 'ant test'
+- a cryptic URLClassLoader ClassNotFound exception may mean it (in build/tests/TEST-*)
+- apt-get install junit did not help
+- looking closer at 'SeleneseTestCase' deprecation warning
+- added 'projectSet.psf' to check project import on some other machine
+- corrected probable typo in build.xml and turned on 'javac' debugging info in desperation

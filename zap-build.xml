@@ -1,6 +1,6 @@
 <project basedir=".">
 
-	<!-- This file contains all of the environment specific configuration, change it for your setup -->
+	<!-- environment specific configuration, change it for your setup -->
     <property file="local.properties"/>
 
 	<!--
@@ -13,7 +13,7 @@
 	TODO: Work out how this should be done properly, clean up and document ;)
 	-->
 	
-	<!-- Useful for debugging - Ant can pick up a different version of the JRE
+	<!-- for debugging
 	<echo message="The Java version is: ${ant.java.version}"/>
 	<echo message="The Java home directory is: ${java.home}"/>
 	-->
