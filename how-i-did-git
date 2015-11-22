@@ -83,3 +83,21 @@ mv ZAP_D-2015-11-16/ ZAPdw
 ~/zap2/zap.sh , accept license, no session, tools-options-local proxy - port 8090
 INFO: https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions.xml
 
+=== Fix CRLF ==
+on Windows one should:
+    git config --global core.autocrlf true
+on Linux one should:
+    git config --global core.autocrlf input
+see: https://help.github.com/articles/dealing-with-line-endings/
+
+I had to:
+(http://stackoverflow.com/questions/1889559/git-diff-to-ignore-m)(http://stackoverflow.com/a/1889699)
+git config --global core.autocrlf input
+git rm --cached -r .
+git diff --cached --name-only -z | xargs -0 git add #Lots of messages like:
+    # warning: CRLF will be replaced by LF in root/js/jquery-1.6.4.min.js
+    # The file will have its original line endings in your working directory.
+git diff --cached --name-only -z | xargs -0 git add
+git commit -m "Fix CRLF"
+    # later ^M were removed and files were re-added to git
+===============
