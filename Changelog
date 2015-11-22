@@ -10,3 +10,16 @@ ecb4791 app runs on Tomcat started from Eclipse.
 - added build/WEB-INF/claases temporarily until above TODO is not resolved 
 - And a whole buch of excludes to '.gitignore'. When TODO is finished 
   we should remove them as well as WEB-INF/classes and ignore the whole build/
+
+cc8ba20
+- 'ant test' resulted in error. See 'ant-test-error1'. Working on build.xml to resolve it.
+- ant mkdir TODO resolved in build.xml
+- .gitignore cleaned up
+- small meta-doc fixes
+
+??????
+- added 'mkdir build/tests' to 'build' target to cater for 'test' target 
+- (currently 'ant test' fails. Logs are in build/tests)
+-'test' should depend on 'build'; 'test' should show in 'ant -p' - added 'description'
+- added .project to simplify importing Git folder into Eclipse
+- 'ant 'test' warns of multiple 'ant.jar' found. 'git rm lib/ant.jar'

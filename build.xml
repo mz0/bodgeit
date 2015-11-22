@@ -5,27 +5,22 @@
 	<dirname file="${ant.file}" property="bodgeit.home"/>
 
 	<path id="java.classpath">
-		<fileset dir="root/WEB-INF/lib">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="lib">
-			<include name="*.jar" />
-		</fileset>
-		<fileset dir="build/WEB-INF/classes">
-			<include name="*.class" />
-		</fileset>
+		<fileset dir="root/WEB-INF/lib">     <include name="*.jar" /></fileset>
+		<fileset dir="lib">		     <include name="*.jar" /></fileset>
+		<fileset dir="build/WEB-INF/classes"><include name="*.class" /></fileset>
 		<pathelement location="build/WEB-INF/classes"/>
 	</path>
 
 	<target name="hack">
 		<echo message="file=$(ant.file) home=${ant.home} bodge=${bodgeit.home}"/>
 	</target>
-		
 
 	<target name="compile">
 		<mkdir dir="build/WEB-INF/classes"/>
 		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" />
 	</target>
+
+	<target name="clean"> <delete dir="build"/> </target>
 
 	<target name="build" depends="compile">
 		<copy toDir="build"><fileset dir="root" includes="**/*"/></copy>
@@ -35,6 +30,7 @@
 		<war destfile="build/bodgeit.war" webxml="root/WEB-INF/web.xml">
 			<fileset dir="build"/>
 		</war>
+		<mkdir dir="build/tests"/>
 	</target>
 
 	<target name="deploy" depends="build">
@@ -52,26 +48,26 @@
 		</copy>
 	</target>
 
-	<target name="test">
-        <!-- Run the JUnit tests -->
+	<target name="test" description="check Selenium-Firefox integration" depends="build">
+        <!--junit showoutput="true"-->
         <junit printsummary="yes">
             <classpath>
-        		<fileset dir="root/WEB-INF/lib">
-        			<include name="*.jar" />
-        		</fileset>
-        		<fileset dir="lib">
-        			<include name="*.jar" />
-        		</fileset>
-        		<pathelement location="bin"/>
+       		<fileset dir="root/WEB-INF/lib">
+       			<include name="*.jar" />
+       		</fileset>
+       		<fileset dir="lib">
+       			<include name="*.jar" />
+       		</fileset>
+       		<pathelement location="bin"/>
             </classpath>
             <formatter type="plain"/>
             <formatter type="xml"/>
             <batchtest fork="yes" todir="build/tests">
                 <fileset dir="src">
-                    <include name="**/*Test.java"/>
+                    <include name="**/FunctionalTest.java"/>
                 </fileset>
             </batchtest>
-		</junit>
+	</junit>
 	</target>
 
 	<target name="zap-proxy-tests">
