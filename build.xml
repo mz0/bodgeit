@@ -5,7 +5,7 @@
 	<dirname file="${ant.file}" property="bodgeit.home"/>
 
 	<path id="java.classpath">
-		<fileset dir="root/WEB-INF/lib">     <include name="*.jar" /></fileset>
+		<fileset dir="WebContent/WEB-INF/lib">     <include name="*.jar" /></fileset>
 		<fileset dir="lib">		     <include name="*.jar" /></fileset>
 		<fileset dir="build/WEB-INF/classes"><include name="*.class" /></fileset>
 		<pathelement location="build/WEB-INF/classes"/>
@@ -23,11 +23,11 @@
 	<target name="clean"> <delete dir="build"/> </target>
 
 	<target name="build" depends="compile">
-		<copy toDir="build"><fileset dir="root" includes="**/*"/></copy>
+		<copy toDir="build"><fileset dir="WebContent" includes="**/*"/></copy>
 
 		<delete file="build/bodgeit.war"/>
 		
-		<war destfile="build/bodgeit.war" webxml="root/WEB-INF/web.xml">
+		<war destfile="build/bodgeit.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="build"/>
 		</war>
 		<mkdir dir="build/tests"/>
@@ -40,7 +40,7 @@
 
 	<target name="deploy-jsps">
 		<copy toDir="${deploy.dir}/bodgeit">
-			<fileset dir="root">
+			<fileset dir="WebContent">
 				<include name="*.jsp" />
 				<include name="*.css" />
 				<include name="**/*.png" />
@@ -52,7 +52,7 @@
         <!--junit showoutput="true"-->
         <junit printsummary="yes">
             <classpath>
-       		<fileset dir="root/WEB-INF/lib">
+       		<fileset dir="WebContent/WEB-INF/lib">
        			<include name="*.jar" />
        		</fileset>
        		<fileset dir="lib">
@@ -76,7 +76,7 @@
         	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
         	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
             <classpath>
-        		<fileset dir="root/WEB-INF/lib">
+        		<fileset dir="WebContent/WEB-INF/lib">
         			<include name="*.jar" />
         		</fileset>
         		<fileset dir="lib">
