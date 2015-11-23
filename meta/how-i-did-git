@@ -20,6 +20,9 @@ git commit -m 'Remove the now ignored "build/" contents'
 
 git remote set-url --push origin git@github.com:mz0/bodgeit.git
 
+git log HEAD..origin/master
+--- http://stackoverflow.com/questions/13226281/how-can-i-get-git-log-from-head (http://stackoverflow.com/a/13226324)
+
 ==========================================================================================================================================
 Different git Push & Pull(fetch) URLs
 -------------------------------------
