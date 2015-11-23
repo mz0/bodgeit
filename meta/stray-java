@@ -1,0 +1,10 @@
+mz0@mzi5:~/eclipseM1$ ps ax |grep java
+ 2906 ?        Sl     0:12 /usr/lib/jvm/java-8-oracle/bin/java -jar /home/mz0/ewsLb/bodgeit/lib/selenium-server-standalone-2.43.0.jar
+13043 pts/2    R+     0:00 grep --color=auto java
+mz0@mzi5:~/eclipseM1$ date
+Mon Nov 23 14:29:58 MSK 2015
+After trying and failing to run on Tomcat and closing Eclipse
+.classpath still points to non-existent 'tomcatz' (as on mze3)
+new server defined but not yet picked up
+killing this process and truing to modify project settings in Eclipse
+
