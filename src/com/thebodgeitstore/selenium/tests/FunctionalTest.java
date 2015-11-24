@@ -14,7 +14,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.thoughtworks.selenium.SeleneseTestCase;
 
 //INFO this is not an example of a good Selenium test!
-//FIXME (mz0) does not work for me.
 public class FunctionalTest extends SeleneseTestCase {
 
 	private WebDriver driver;
@@ -25,7 +24,7 @@ public class FunctionalTest extends SeleneseTestCase {
 		String target = System.getProperty(propTgt);
 		if (target != null && target.length() > 0) {
 			site = target;
-			//("Site supplied in "+propTgt+":"+site);
+			//("Site supplied in "+propTgt+" : "+site);
 		} else {
 			//TODO proper messaging/logging
 			//("No site supplied in "+propTgt);
