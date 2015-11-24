@@ -1,0 +1,29 @@
+git log --pretty=format:"%h - %cn : %s" build.xml
+
+bc19208 - psiinon : Fixed build files and added tasks which dont require the Ant tasks
+6599aac - psiinon@gmail.com : Updated selenium jar and tweaked build files
+d4e1276 - psiinon@gmail.com : Updated to use classes from bin rather than the WEB-INF directory for tests as well as zap-test
+b99432c - psiinon@gmail.com : Updated to use classes from bin rather than the WEB-INF directory
+6e62579 - psiinon@gmail.com : Updated selenium and tweaked tests 				- antfile="zap-build.xml" target="startZap"
+52daa40 - psiinon@gmail.com : Added Anti CSRF token to comments page 					- tofile="/opt/tomcat/..."
+572a24a - psiinon@gmail.com : Updated build and libs for the ZAP tests					+ <target name="test">
+876f61e - psiinon@gmail.com : Implemented initial scoring page and added some icons. 			+ <include name="**/*.png" />
+d257e0b - psiinon@gmail.com : First version
+
+
+git diff 6e62579 b99432c build.xml 
+diff --git a/build.xml b/build.xml
+index 647e9e5..9798f9f 100644
+--- a/build.xml
++++ b/build.xml
+@@ -98,10 +98,7 @@
+                        <fileset dir="lib">
+                                <include name="*.jar" />
+                        </fileset>
+-                       <fileset dir="build/WEB-INF/classes">
+-                               <include name="*.class" />
+-                       </fileset>
+-                       <pathelement location="build/WEB-INF/classes"/>
++                       <pathelement location="bin"/>
+
+

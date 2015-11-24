@@ -6,7 +6,7 @@
 
 	<path id="java.classpath">
 		<fileset dir="WebContent/WEB-INF/lib"> <include name="*.jar" /></fileset>
-		<fileset dir="lib">		     <include name="*.jar" /></fileset>
+		<fileset dir="testlib">		     <include name="*.jar" /></fileset>
 		<fileset dir="build/WEB-INF/classes"><include name="*.class" /></fileset>
 		<pathelement location="build/WEB-INF/classes"/>
 	</path>
@@ -15,6 +15,7 @@
 		<echo message="
 		ant.file = ${ant.file}
 		ant.home = ${ant.home}
+		ant.version = ${ant.version}
 		bodgeit.home = ${bodgeit.home}
 		"/>
 	</target>
@@ -32,7 +33,6 @@
 		<war destfile="build/bodgeit.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="build"/>
 		</war>
-		<mkdir dir="build/tests"/>
 	</target>
 
 	<target name="deploy" depends="build">
@@ -40,31 +40,20 @@
 		<copy file="build/bodgeit.war" tofile="${deploy.dir}/bodgeit.war"/>
 	</target>
 
-	<target name="deploy-jsps">
-		<copy toDir="${deploy.dir}/bodgeit">
-			<fileset dir="WebContent">
-				<include name="*.jsp" />
-				<include name="*.css" />
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
-	</target>
-
-	<target name="test" description="check Selenium-Firefox integration" depends="build">
+	<target name="test" description="check WebDriver-Firefox integration and site running"><!--depends="deploy-tomcat"-->
         <!--junit showoutput="true"-->
-        <junit printsummary="yes">
+        <junit printsummary="yes" haltonerror="yes">
 	<classpath>
 		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar" />
 		</fileset>
-		<fileset dir="lib">
-			<include name="*.jar" />
+		<fileset dir="testlib">
+			<include name="selenium-server-standalone.jar" />
 		</fileset>
-		<pathelement location="bin"/>
+		<pathelement location="build/classes"/>
 	</classpath>
-            <!-- formatter type="plain"/ -->
             <formatter type="xml"/>
-            <batchtest fork="yes" todir="build/tests">
+            <batchtest>
                 <fileset dir="src">
                     <include name="**/FunctionalTest.java"/>
                 </fileset>
