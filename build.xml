@@ -5,28 +5,30 @@
 	<dirname file="${ant.file}" property="bodgeit.home"/>
 
 	<path id="java.classpath">
-		<fileset dir="WebContent/WEB-INF/lib">     <include name="*.jar" /></fileset>
+		<fileset dir="WebContent/WEB-INF/lib"> <include name="*.jar" /></fileset>
 		<fileset dir="lib">		     <include name="*.jar" /></fileset>
 		<fileset dir="build/WEB-INF/classes"><include name="*.class" /></fileset>
 		<pathelement location="build/WEB-INF/classes"/>
 	</path>
 
 	<target name="hack">
-		<echo message="file=${ant.file} home=${ant.home} bodge=${bodgeit.home}"/>
+		<echo message="
+		ant.file = ${ant.file}
+		ant.home = ${ant.home}
+		bodgeit.home = ${bodgeit.home}
+		"/>
 	</target>
 
 	<target name="compile">
 		<mkdir dir="build/WEB-INF/classes"/>
-		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" source="1.7" debug="on"/>
+		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="java.classpath" debug="on"/>
 	</target>
 
 	<target name="clean"> <delete dir="build"/> </target>
 
 	<target name="build" depends="compile">
 		<copy toDir="build"><fileset dir="WebContent" includes="**/*"/></copy>
-
 		<delete file="build/bodgeit.war"/>
-		
 		<war destfile="build/bodgeit.war" webxml="WebContent/WEB-INF/web.xml">
 			<fileset dir="build"/>
 		</war>
@@ -51,16 +53,16 @@
 	<target name="test" description="check Selenium-Firefox integration" depends="build">
         <!--junit showoutput="true"-->
         <junit printsummary="yes">
-            <classpath>
-       		<fileset dir="WebContent/WEB-INF/lib">
-       			<include name="*.jar" />
-       		</fileset>
-       		<fileset dir="lib">
-       			<include name="*.jar" />
-       		</fileset>
-       		<pathelement location="bin"/>
-            </classpath>
-            <formatter type="plain"/>
+	<classpath>
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="bin"/>
+	</classpath>
+            <!-- formatter type="plain"/ -->
             <formatter type="xml"/>
             <batchtest fork="yes" todir="build/tests">
                 <fileset dir="src">
@@ -71,27 +73,27 @@
 	</target>
 
 	<target name="zap-proxy-tests">
-		<!-- Run the standard tests -->
+	<!-- Run the standard tests -->
         <junit printsummary="yes" fork="yes">
-        	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
-        	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
-            <classpath>
-        		<fileset dir="WebContent/WEB-INF/lib">
-        			<include name="*.jar" />
-        		</fileset>
-        		<fileset dir="lib">
-        			<include name="*.jar" />
-        		</fileset>
-        		<pathelement location="bin"/>
-            </classpath>
-            <formatter type="plain"/>
-            <formatter type="xml"/>
-            <batchtest fork="yes" todir="build/tests">
-                <fileset dir="src">
-                    <include name="**/FunctionalZAP.java"/>
-                </fileset>
-            </batchtest>
-		</junit>
+	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
+	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
+	<classpath>
+	<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+	</fileset>
+	<fileset dir="lib">
+		<include name="*.jar" />
+	</fileset>
+	<pathelement location="bin"/>
+	</classpath>
+	<formatter type="plain"/>
+	<formatter type="xml"/>
+	<batchtest fork="yes" todir="build/tests">
+	<fileset dir="src">
+	<include name="**/FunctionalZAP.java"/>
+	</fileset>
+	</batchtest>
+	</junit>
 	</target>
 
 	<target name="zap-spider">
@@ -101,12 +103,12 @@
 			<arg value="zapaddr=${zap.addr}"/>
 			<arg value="zapport=${zap.port}"/>
 			<arg value="debug=true"/>
-			
-			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
-			</classpath>
+
+		<classpath>
+		<fileset dir="lib">
+				<include name="zap-api*.jar" />
+		</fileset>
+		</classpath>
 		</java>
 	</target>
 

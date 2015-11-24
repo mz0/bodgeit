@@ -1,0 +1,7 @@
+    Class klass = ClassInTrouble.class;
+    CodeSource codeSource = klass.getProtectionDomain().getCodeSource();
+
+    if ( codeSource != null) {
+        System.out.println(codeSource.getLocation());
+    }
+

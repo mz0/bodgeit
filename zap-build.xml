@@ -18,16 +18,16 @@
 	<echo message="The Java home directory is: ${java.home}"/>
 	-->
 
-	<taskdef name="accessUrlTask" classname="org.zaproxy.clientapi.ant.AccessUrlTask"/>
-	<taskdef name="activeScanUrlTask" classname="org.zaproxy.clientapi.ant.ActiveScanUrlTask"/>
-	<taskdef name="activeScanSubtreeTask" classname="org.zaproxy.clientapi.ant.ActiveScanSubtreeTask"/>
-	<taskdef name="alertCheckTask" classname="org.zaproxy.clientapi.ant.AlertCheckTask"/>
-	<taskdef name="loadSessionTask" classname="org.zaproxy.clientapi.ant.LoadSessionTask"/>
-	<taskdef name="newSessionTask" classname="org.zaproxy.clientapi.ant.NewSessionTask"/>
-	<taskdef name="saveSessionTask" classname="org.zaproxy.clientapi.ant.SaveSessionTask"/>
-	<taskdef name="spiderUrlTask" classname="org.zaproxy.clientapi.ant.SpiderUrlTask"/>
-	<taskdef name="stopZapTask" classname="org.zaproxy.clientapi.ant.StopZapTask"/>
-	<taskdef name="alert" classname="org.zaproxy.clientapi.ant.AlertTask"/>
+	<taskdef name="accessUrlTask"		classname="org.zaproxy.clientapi.ant.AccessUrlTask"/>
+	<taskdef name="activeScanUrlTask"	classname="org.zaproxy.clientapi.ant.ActiveScanUrlTask"/>
+	<taskdef name="activeScanSubtreeTask"	classname="org.zaproxy.clientapi.ant.ActiveScanSubtreeTask"/>
+	<taskdef name="alertCheckTask"		classname="org.zaproxy.clientapi.ant.AlertCheckTask"/>
+	<taskdef name="loadSessionTask"		classname="org.zaproxy.clientapi.ant.LoadSessionTask"/>
+	<taskdef name="newSessionTask"		classname="org.zaproxy.clientapi.ant.NewSessionTask"/>
+	<taskdef name="saveSessionTask"		classname="org.zaproxy.clientapi.ant.SaveSessionTask"/>
+	<taskdef name="spiderUrlTask"		classname="org.zaproxy.clientapi.ant.SpiderUrlTask"/>
+	<taskdef name="stopZapTask"		classname="org.zaproxy.clientapi.ant.StopZapTask"/>
+	<taskdef name="alert"			classname="org.zaproxy.clientapi.ant.AlertTask"/>
 
 	<!--
 	Calling tasks can override properties, eg using
@@ -85,11 +85,10 @@
 			    will ignore all alerts with a Low risk and Warning reliability
 			    The url, param and other fields are all regexs 
 	    	-->
-	    	
-			<ignoreAlert alert="X-Content-Type-Options header missing" risk="Low" reliability="Warning"/> 
-	    	<ignoreAlert alert="Cross Site Request Forgery" risk="Medium" reliability="Warning"/> 
-	    	<ignoreAlert alert="Cookie set without HttpOnly flag" risk="Low" reliability="Warning"/>
-	    	<ignoreAlert alert="X-Frame-Options header not set" risk="Informational" reliability="Warning"/> 
+		<ignoreAlert alert="X-Content-Type-Options header missing"	risk="Low"	 reliability="Warning"/>
+		<ignoreAlert alert="Cross Site Request Forgery"			risk="Medium"	 reliability="Warning"/>
+		<ignoreAlert alert="Cookie set without HttpOnly flag"		risk="Low"	 reliability="Warning"/>
+		<ignoreAlert alert="X-Frame-Options header not set"		risk="Informational" reliability="Warning"/>
 	    </alertCheckTask>
 	</target>
 	
