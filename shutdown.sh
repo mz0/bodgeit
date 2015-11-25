@@ -1,0 +1,1 @@
+/home/mz0/tomcat/bin/shutdown.sh
