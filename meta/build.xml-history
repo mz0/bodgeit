@@ -26,4 +26,25 @@ index 647e9e5..9798f9f 100644
 -                       <pathelement location="build/WEB-INF/classes"/>
 +                       <pathelement location="bin"/>
 
+diff --git a/build.xml b/build.xml
+index 9798f9f..86c348a 100644
+--- a/build.xml
++++ b/build.xml
+@@ -60,7 +60,7 @@
+                        <fileset dir="lib">
+                                <include name="*.jar" />
+                        </fileset>
+-                       <pathelement location="build/WEB-INF/classes"/>
++                       <pathelement location="bin"/>
 
+
+git diff f347118 f837d0b lib
+diff --git a/lib/ant.jar b/lib/ant.jar
+deleted file mode 100644
+
+---
+      [war] Building war: /home/mz0/bodgeit/build/bodgeit.war
+      [war] Warning: selected war files include a second WEB-INF/web.xml which will be ignored.
+      [war] The duplicate entry is at /home/mz0/bodgeit/build/WEB-INF/web.xml
+      [war] The file that will be used is /home/mz0/bodgeit/WebContent/WEB-INF/web.xml
+---
