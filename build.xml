@@ -41,7 +41,8 @@
 	</target>
 
 	<target name="test" description="check WebDriver-Firefox integration and site running"><!--depends="deploy-tomcat"-->
-<echo message="Before running 'test' you should start Tomcat with deployed WAR! That's not automated yet. It is on a TODO list."/>
+<echo message="FIXME: Before running 'test' you should start Tomcat with deployed WAR by hand."/>
+<echo message="FIXME: Before running 'test' you should compile FunctionalTest.java in Eclipse. Fix it here."/>
         <!--junit showoutput="true"-->
         <junit printsummary="yes" haltonerror="yes">
 	<classpath>
