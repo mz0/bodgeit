@@ -1,0 +1,54 @@
+https://github.com/ddt-tdd/bodgeit-maven David Tillemans ? 
+========================================
+Automatically exported from code.google.com/p/bodgeit-maven 
+ pom.xml 	[maven-release-plugin] prepare for next development iteration 	22 hours ago
+
+This is a sample project to get started with the zap-maven-plugin 1.2 and ZAproxy 2.4.2. It is a sample web application which has selenium tests, which are executed during the test-phase of maven. It reuses the same selenium tests to feed the zap-proxy application with all links. The zap-maven-plugin will start the ZAProxy application and stop it after the tests. The zap-maven-plugin will create a site (in the src/site/resources/zaproxy directory) so it can be shown using mvn site:run.
+
+Usage
+
+You first have to build it without tests:
+	mvn clean install -DskipTests -DskipITs
+
+You can deploy it to your server, but under the /thebodgeitstore/ context. Or you can run it using:
+	mvn jetty:run
+
+You open a second terminal and adapt the pom.xml for the tests. 
+If a very new Firefox is used, you probably have to update the selenium dependency to the latest version. 
+You need also adapt the location where the plugin has to find the ZAProxy batch file or shell file under the <zapProgram>-tag
+Then you can run the maven verify to perform the tests:
+	mvn verify
+
+https://github.com/AlbanAndrieu/bodgeit-maven
+===============================
+ .gitattributes 	Initial import 	8 months ago
+* text=auto # Auto detect text files and perform LF normalization
+*.js eol=lf # JS files must always use LF for tools to work
+ pom.xml 	switch zap proxy to 8091 	5 months ago
+
+
+
+https://github.com/lwischmann/bodgeitX
+--------------------------------------
+ exercise/csrf 	* order process added 	a year ago
+
+
+
+)))
+dtillem...@gmail.com
+
+Role 	Project 	Summary
+Owner 	bodgeit-maven 	Maven version of Bodgeitstore
+Owner 	smalltrain 	rail schedule module for the belgian railways
+Owner 	thoeris 	Heavy protection of data in the cloud
+Owner 	zap-maven-plugin 	Maven plugin to perform security scan with ZAProxy
+Clone 	dtillemans-commons-eid 	Derivative to use JS with commons-eid
+Clone 	dtillemans-selenium 	Adapt Selium IDE code templates to create automatic security tests 
+)))
+https://github.com/TeamPraxis/grunt-zaproxy
+
+))))
+https://github.com/AlbanAndrieu/ansible-eclipse
+Ensures that eclipse is properly installed and configured on Ubuntu using Ansible script. Default settings is using Eclipse Luna. This Simple role allows you to install Eclipse with basic plugins. This playbook is be used by Docker Hub to create a Docker image. 
+ .travis.yml 	Update ansible 	4 months ago (25 Jul 2015)
+
