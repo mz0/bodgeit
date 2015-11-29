@@ -43,45 +43,29 @@
 <path id="test.cp">
 	<pathelement location="lib/commons-lang3.jar"/>
 	<pathelement location="testlib/selenium-server-standalone.jar"/>
-	<pathelement location="build/test"/>
+	<pathelement location="build"/>
 	</path>
 
 <target name="mktest">
 	<mkdir dir="build/test"/>
-	<javac destdir="build/test" srcdir="src/test" classpathref="test.cp" includeAntruntime="no"/>
+	<javac destdir="build" srcdir="src/test" classpathref="test.cp" includeAntruntime="no"/>
 	</target>
 
 
 <target name="test" description="check WebDriver-Firefox integration using the running site" depends="deploy,mktest">
-<echo message="FIXME: Before running 'test' you should start Tomcat with deployed WAR by hand."/>
-<pathconvert targetos="unix" property="ttestu.cp" refid="test.cp"/>
-<echo message="my classpath: ${ttestu.cp}"/>
-        <junit printsummary="yes" haltonerror="yes"> <!-- showoutput="true"-->
-	<formatter type="xml"/>
+<echo message="FIXME: Tomcat with deployed WAR must be running!"/>
+	<junit printsummary="yes" haltonerror="yes"> <formatter type="xml"/>
 	<classpath><path refid="test.cp"/></classpath>
-        <batchtest todir="build">
-		<fileset dir="src"> <include name="**/FunctionalTest.java"/> </fileset>
-        </batchtest>
+        <test todir="build" name="test.FunctionalTest"/>
 	</junit>
 	</target>
 
-<path id="ztest.cp">
-		<pathelement location="lib/commons-lang3.jar"/>
-		<pathelement location="testlib/zap-api.jar"/>
-		<pathelement location="testlib/selenium-server-standalone.jar"/>
-		<pathelement location="build/classes"/>
-	</path>
 <target name="zap-proxy-tests">
-        <junit printsummary="yes" fork="yes">
-	<formatter type="xml"/> <formatter type="plain"/>
+        <junit printsummary="yes" fork="yes"> <formatter type="xml"/> <formatter type="plain"/>
 	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
 	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
-	<classpath><path refid="ztest.cp"/></classpath>
-	<batchtest fork="yes" todir="build">
-	<fileset dir="src">
-	<include name="**/FunctionalZAP.java"/>
-	</fileset>
-	</batchtest>
+	<classpath> <path refid="test.cp"/> <pathelement location="testlib/zap-api.jar"/> </classpath>
+	<test todir="build" name="test.FunctionalZAP"/>
 	</junit>
 	</target>
 
@@ -194,32 +178,17 @@
 	</target>
 
 <target name="zap-test" description=
-	"Runs the Bodgeit tests through ZAP (which must be running) and then scan for vulnerabilities">
-<echo message="ZAP must be running when you start this test"/>
+ "Runs the Bodgeit tests through ZAP (which must be running) and then scan for vulnerabilities">
+<echo message="Tomcat with deployed WAR must be running!"/>
+<echo message="ZAP must be running when you start this test. You may use testlib/zapRun."/>
 <echo message="ZAP will not be stopped if test fails, you may try 'zap-stop' target to do that."/>
-		<antcall target="zap-proxy-tests"/>		
-
-		<sleep seconds="5"/>
-
-		<!-- Spider the whole site -->
-		<antcall target="zap-spider"/>
-
-		<sleep seconds="5"/>
-
-		<!-- Active scan the whole site -->
-		<antcall target="zap-ascan"/>		
-
-		<sleep seconds="3"/>
-
-		<!-- Save to a timestamped session file -->
+		<antcall target="zap-proxy-tests"/>	<sleep seconds="5"/>
+		<antcall target="zap-spider"/>		<sleep seconds="5"/>
+		<antcall target="zap-ascan"/>		<sleep seconds="3"/>
 		<antcall target="zap-saveSession"/>
-
 		<!-- Give the passive scanner thread a chance to catch up -->
 		<sleep seconds="5"/>
-		
-		<!-- Check the alerts logged -->
 		<antcall target="zap-checkAlerts"/>
-
 		<antcall target="zap-stop"/>
 	</target>
 
@@ -233,21 +202,16 @@
 
 		<!-- Start ZAP in background -->
 		<ant antfile="zap-build.xml" target="startZapDaemon" inheritAll="false"/>
-
 		<antcall target="zap-test-tasks"/>		
 	</target>
 
-	<target name="zap-test-tasks-ui"
-		description="Starts the ZAP UI, run the Bodgeit tests through it and then scan for vulnerabilities using Ant tasks">
+	<target name="zap-test-tasks-ui" description=
+ "Starts the ZAP UI, run the Bodgeit tests through it and then scan for vulnerabilities using Ant tasks">
 		<!-- Your servlet engine must be running when you start this test -->
-		<!-- 
-			You must also have configured Eclipse to use the ZAP client jar as per the 
-			instructions in zap-build.xml
-		-->
-
+		<!-- You must also have configured Eclipse to use the ZAP client jar as per the 
+			instructions in zap-build.xml -->
 		<!-- Start ZAP with UI -->
 		<ant antfile="zap-build.xml" target="startZap" inheritAll="false"/>
-
 		<antcall target="zap-test-tasks"/>		
 	</target>
 
@@ -255,13 +219,9 @@
 	<target name="zap-test-tasks" 
 		description="Runs the Bodgeit tests through ZAP (which must be running) and then scan for vulnerabilities using Ant tasks">
 		<!-- ZAP must be running when you start this test -->
-		<!-- 
-			You must also have configured Eclipse to use the ZAP client jar as per the 
-			instructions in zap-build.xml
-		-->
-
+		<!-- You must also have configured Eclipse to use the ZAP client jar as per the 
+			instructions in zap-build.xml -->
 		<antcall target="zap-proxy-tests"/>		
-
 		<sleep seconds="5"/>
 
 		<!-- Spider the whole site -->
@@ -293,7 +253,6 @@
 		Note that if the above test fails ZAP will not be stopped, so you will need to call the stopZap target directly.
 		-->
 
-		<!-- Stop ZAP -->
 		<ant antfile="zap-build.xml" target="stopZap" inheritAll="false"/>
 	</target>
 </project>
