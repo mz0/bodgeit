@@ -1,0 +1,39 @@
+touch -t 200508201908 hsqldb.jar
+
+1.8.0.2	release	(Aug 20, 2005) tag hsqldb_1_8_0_2 
+svn://svn.code.sf.net/p/hsqldb/svn/
+http://hsqldb.org/doc/1.8/changelist_1_8_0.txt
+
+http://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/ 
+hsqldb-1.8.0.10.jar 1-Jun-2008 18:59  706710
+
+----------------------------------------------------------------------------
+
+java -jar hsqldb.jar --help
+Usage: java [-Dsqlfile.X=Y...] org.hsqldb.util.SqlTool \
+    [--optname [optval...]] urlid [file1.sql...]
+where arguments are:
+    --help                   Displays this message
+    --list                   List urlids in the rcfile
+    --noinput                Do not read stdin (default if sql file given
+                             or --sql switch used).
+    --stdinput               Read stdin IN ADDITION to sql files/--sql input
+    --debug                  Print Debug info to stderr
+    --noAutoFile             Do not execute auto.sql from home dir
+    --autoCommit             Auto-commit JDBC DML commands
+    --sql "SQL; Statements"  Execute given SQL instead of stdin (before
+                             SQL files if any are specified) where "SQL"
+                             consists of SQL command(s).  See the Guide.
+    --rcfile /file/path.rc   Connect Info File [$HOME/sqltool.rc]
+    --abortOnErr             Abort on Error (overrides defaults)
+    --continueOnErr          Continue on Error (overrides defaults)
+    --setvar NAME1=val1[,NAME2=val2...]   PL variables
+    --driver a.b.c.Driver    JDBC driver class [org.hsqldb.jdbcDriver]
+    urlid                    ID of url/userame/password in rcfile
+    file1.sql...             SQL files to be executed [stdin]
+                             (Use '-' for non-interactively stdin).
+See the SqlTool Manual for the supported sqltool.* System Properties.
+SqlTool v. 1.49.
+
+https://www.seasar.org/en/tutorial/hsqldb/sqltool/
+http://www.hsqldb.org/doc/guide/ch08.html

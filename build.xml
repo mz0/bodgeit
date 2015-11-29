@@ -1,11 +1,11 @@
 <project basedir="." default="compile">
 
 	<!-- environment specific configuration, change it for your setup -->
-	<property file="local.properties"/>
-	<dirname file="${ant.file}" property="bodgeit.home"/>
+<property file="local.properties"/>
+<dirname file="${ant.file}" property="bodgeit.home"/>
 
 <target name="hack">
-		<echo message="
+	<echo message="
 		ant.file = ${ant.file}
 		ant.home = ${ant.home}
 		ant.version = ${ant.version}
@@ -13,59 +13,69 @@
 		"/>
 	</target>
 
-<path id="tcompile.cp">
-		<fileset dir="WebContent/WEB-INF/lib"> <include name="*.jar" /></fileset>
-		<fileset dir="testlib">		     <include name="*.jar" /></fileset>
-		<fileset dir="build/WEB-INF/classes"><include name="*.class" /></fileset>
-		<pathelement location="build/WEB-INF/classes"/>
+<path id="compile.cp">
+	<fileset dir="lib"> <include name="*.jar" /></fileset>
 	</path>
 
 <target name="compile">
-		<mkdir dir="build/WEB-INF/classes"/>
-		<javac destdir="build/WEB-INF/classes" srcdir="src" classpathref="tcompile.cp" includeAntruntime="no"/><!--debug="on"/-->
+	<mkdir dir="build/site/WEB-INF/classes"/>
+	<javac destdir="build/site/WEB-INF/classes" srcdir="src/com" classpathref="compile.cp" includeAntruntime="no"/>
 	</target>
 
 <target name="clean"> <delete dir="build"/> </target>
 
-	<target name="build" depends="compile">
-		<copy toDir="build"><fileset dir="WebContent" includes="**/*" excludes="**/web.xml"/></copy>
-		<delete file="build/bodgeit.war"/> <delete file="build/WEB-INF/web.xml"/>
-		<war destfile="build/bodgeit.war" webxml="WebContent/WEB-INF/web.xml">
-			<fileset dir="build"  excludes="TEST*"/>
-		</war>
+<target name="build" depends="compile">
+	<copy toDir="build/site"><fileset dir="WebContent" includes="**/*"/></copy>
+	<delete file="build/bodgeit.war"/>
+	<delete file="build/site/WEB-INF/web.xml"/>
+	<war destfile="build/bodgeit.war" webxml="meta/web.xml">
+		<fileset dir="build/site"/>
+	</war>
 	</target>
 
-	<target name="deploy" depends="build">
-		<delete dir="${deploy.dir}/bodgeit"/>
-		<copy file="build/bodgeit.war" tofile="${deploy.dir}/bodgeit.war"/>
+<target name="deploy" depends="build">
+	<delete dir="${deploy.dir}/bodgeit"/>
+	<copy file="build/bodgeit.war" tofile="${deploy.dir}/bodgeit.war"/>
 	</target>
 
-<target name="test" description="check WebDriver-Firefox integration using the running site">
+<path id="test.cp">
+	<pathelement location="lib/commons-lang3.jar"/>
+	<pathelement location="testlib/selenium-server-standalone.jar"/>
+	<pathelement location="build/classes"/>
+	</path>
+
+<target name="mktest">
+	<mkdir dir="build/test"/>
+	<javac destdir="build/test" srcdir="src/test" classpathref="test.cp" includeAntruntime="no"/>
+	</target>
+
+
+<target name="test" description="check WebDriver-Firefox integration using the running site" depends="deploy,mktest">
 <echo message="FIXME: Before running 'test' you should start Tomcat with deployed WAR by hand."/>
 <echo message="FIXME: Build the whole project in Eclipse, so build/classes has FunctionalTest.class. Beware ClassNotFoundException and 'Failures: 0, Errors: 1'. Fix it here."/>
+<pathconvert targetos="unix" property="ttestu.cp" refid="ttest.cp"/>
+<echo message="my classpath: ${ttestu.cp}"/>
         <junit printsummary="yes" haltonerror="yes"> <!-- showoutput="true"-->
 	<formatter type="xml"/>
-	<classpath>
-		<fileset dir="WebContent/WEB-INF/lib"> <include name="*.jar" /> </fileset>
-		<fileset dir="testlib"> <include name="selenium-server-standalone.jar" /> </fileset>
-		<pathelement location="build/classes"/>
-	</classpath>
+	<classpath><path refid="ttest.cp"/></classpath>
         <batchtest todir="build">
 		<fileset dir="src"> <include name="**/FunctionalTest.java"/> </fileset>
         </batchtest>
 	</junit>
 	</target>
 
+<path id="ztest.cp">
+		<pathelement location="lib/commons-lang3.jar"/>
+		<pathelement location="testlib/zap-api.jar"/>
+		<pathelement location="testlib/selenium-server-standalone.jar"/>
+		<pathelement location="build/classes"/>
+	</path>
 <target name="zap-proxy-tests">
         <junit printsummary="yes" fork="yes">
 	<formatter type="xml"/> <formatter type="plain"/>
 	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
 	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
-	<classpath>
-		<fileset dir="WebContent/WEB-INF/lib"> <include name="*.jar" /> </fileset>
-		<fileset dir="testlib"> <include name="*.jar" /> </fileset>
-		<pathelement location="build/classes"/>
-	</classpath>
+	<classpath><path refid="ztest.cp"/></classpath>
 	<batchtest fork="yes" todir="build">
 	<fileset dir="src">
 	<include name="**/FunctionalZAP.java"/>
@@ -83,9 +93,7 @@
 			<arg value="debug=true"/>
 
 		<classpath>
-		<fileset dir="lib">
-				<include name="zap-api*.jar" />
-		</fileset>
+		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 		</classpath>
 		</java>
 	</target>
@@ -99,9 +107,7 @@
 			<arg value="debug=true"/>
 			
 			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
+        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 			</classpath>
 		</java>
 	</target>
@@ -118,9 +124,7 @@
 			<arg value="debug=true"/>
 			
 			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
+        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 			</classpath>
 		</java>
 	</target>
@@ -133,9 +137,7 @@
 			<arg value="debug=true"/>
 			
 			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
+        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 			</classpath>
 		</java>
 	</target>
@@ -152,9 +154,7 @@
 			<arg value="debug=true"/>
 			
 			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
+        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 			</classpath>
 		</java>
 	</target>
@@ -167,9 +167,7 @@
 			<arg value="debug=true"/>
 			
 			<classpath>
-        		<fileset dir="lib">
-        			<include name="zap-api*.jar" />
-        		</fileset>
+        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
 			</classpath>
 		</java>
 	</target>
@@ -195,7 +193,7 @@
 	</target>
 
 <target name="zap-test" description=
-		"Runs the Bodgeit tests through ZAP (which must be running) and then scan for vulnerabilities">
+	"Runs the Bodgeit tests through ZAP (which must be running) and then scan for vulnerabilities">
 <echo message="ZAP must be running when you start this test"/>
 <echo message="ZAP will not be stopped if test fails, you may try 'zap-stop' target to do that."/>
 		<antcall target="zap-proxy-tests"/>		
