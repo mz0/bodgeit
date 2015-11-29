@@ -43,7 +43,7 @@
 <path id="test.cp">
 	<pathelement location="lib/commons-lang3.jar"/>
 	<pathelement location="testlib/selenium-server-standalone.jar"/>
-	<pathelement location="build/classes"/>
+	<pathelement location="build/test"/>
 	</path>
 
 <target name="mktest">
@@ -54,12 +54,11 @@
 
 <target name="test" description="check WebDriver-Firefox integration using the running site" depends="deploy,mktest">
 <echo message="FIXME: Before running 'test' you should start Tomcat with deployed WAR by hand."/>
-<echo message="FIXME: Build the whole project in Eclipse, so build/classes has FunctionalTest.class. Beware ClassNotFoundException and 'Failures: 0, Errors: 1'. Fix it here."/>
-<pathconvert targetos="unix" property="ttestu.cp" refid="ttest.cp"/>
+<pathconvert targetos="unix" property="ttestu.cp" refid="test.cp"/>
 <echo message="my classpath: ${ttestu.cp}"/>
         <junit printsummary="yes" haltonerror="yes"> <!-- showoutput="true"-->
 	<formatter type="xml"/>
-	<classpath><path refid="ttest.cp"/></classpath>
+	<classpath><path refid="test.cp"/></classpath>
         <batchtest todir="build">
 		<fileset dir="src"> <include name="**/FunctionalTest.java"/> </fileset>
         </batchtest>
