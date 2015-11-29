@@ -1,6 +1,6 @@
 <project basedir="." default="compile">
 
-	<!-- environment specific configuration, change it for your setup -->
+<!-- environment specific configuration, change it for your setup -->
 <property file="local.properties"/>
 <dirname file="${ant.file}" property="bodgeit.home"/>
 
@@ -22,21 +22,16 @@
 	<javac destdir="build/site/WEB-INF/classes" srcdir="src/com" includes="com/**.java" classpathref="compile.cp" includeAntruntime="no"/>
 	</target>
 
-<target name="clean"> <delete dir="build"/> </target>
+<target name="clean"> <delete dir="build"/> <delete dir="${deploy.dir}/bodgeit"/> <delete file="${deploy.dir}/bodgeit.war"/> </target>
 
 <target name="build" depends="compile">
 	<copy toDir="build/site"><fileset dir="WebContent" includes="**/*"/></copy>
 	<mkdir dir="build/site/WEB-INF/lib"/>
 	<copy toDir="build/site/WEB-INF/lib"><fileset dir="lib" includes="**/*.jar"/></copy>
-	<delete file="build/bodgeit.war"/>
-	<delete file="build/site/WEB-INF/web.xml"/>
-	<war destfile="build/bodgeit.war" webxml="meta/web.xml">
-		<fileset dir="build/site"/>
-	</war>
+	<war destfile="build/bodgeit.war" webxml="meta/web.xml"> <fileset dir="build/site"/> </war>
 	</target>
 
 <target name="deploy" depends="build">
-	<delete dir="${deploy.dir}/bodgeit"/>
 	<copy file="build/bodgeit.war" tofile="${deploy.dir}/bodgeit.war"/>
 	</target>
 
@@ -47,7 +42,7 @@
 	</path>
 
 <target name="mktest">
-	<javac destdir="build" srcdir="src/check" classpathref="test.cp" includeAntruntime="no"/>
+	<javac destdir="build" srcdir="src" includes="check/**.java" classpathref="test.cp" includeAntruntime="no"/>
 	</target>
 
 
