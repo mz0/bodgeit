@@ -6,11 +6,11 @@
 
 <target name="hack">
 	<echo message="
-		ant.file = ${ant.file}
-		ant.home = ${ant.home}
-		ant.version = ${ant.version}
-		bodgeit.home = ${bodgeit.home}
-		"/>
+	ant.file = ${ant.file}
+	ant.home = ${ant.home}
+	ant.version = ${ant.version}
+	bodgeit.home = ${bodgeit.home}
+	"/>
 	</target>
 
 <path id="compile.cp">
@@ -19,7 +19,7 @@
 
 <target name="compile">
 	<mkdir dir="build/site/WEB-INF/classes"/>
-	<javac destdir="build/site/WEB-INF/classes" srcdir="src/com" classpathref="compile.cp" includeAntruntime="no"/>
+	<javac destdir="build/site/WEB-INF/classes" srcdir="src/com" includes="com/**.java" classpathref="compile.cp" includeAntruntime="no"/>
 	</target>
 
 <target name="clean"> <delete dir="build"/> </target>
@@ -47,16 +47,15 @@
 	</path>
 
 <target name="mktest">
-	<mkdir dir="build/test"/>
-	<javac destdir="build" srcdir="src/test" classpathref="test.cp" includeAntruntime="no"/>
+	<javac destdir="build" srcdir="src/check" classpathref="test.cp" includeAntruntime="no"/>
 	</target>
 
 
-<target name="test" description="check WebDriver-Firefox integration using the running site" depends="deploy,mktest">
+<target name="check-wd" description="check site running, use WebDriver" depends="deploy,mktest">
 <echo message="FIXME: Tomcat with deployed WAR must be running!"/>
 	<junit printsummary="yes" haltonerror="yes"> <formatter type="xml"/>
 	<classpath><path refid="test.cp"/></classpath>
-        <test todir="build" name="test.FunctionalTest"/>
+        <test todir="build" name="check.FunctionalTest"/>
 	</junit>
 	</target>
 
@@ -65,7 +64,7 @@
 	<sysproperty key="zap.proxy" value="${zap.addr}:${zap.port}"/>
 	<sysproperty key="zap.targetApp" value="${zap.targetApp}"/>
 	<classpath> <path refid="test.cp"/> <pathelement location="testlib/zap-api.jar"/> </classpath>
-	<test todir="build" name="test.FunctionalZAP"/>
+	<test todir="build" name="check.FunctionalZAP"/>
 	</junit>
 	</target>
 
@@ -77,9 +76,7 @@
 			<arg value="zapport=${zap.port}"/>
 			<arg value="debug=true"/>
 
-		<classpath>
-		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
-		</classpath>
+		<classpath> <fileset dir="testlib"> <include name="zap-api.jar" /> </fileset> </classpath>
 		</java>
 	</target>
 
@@ -91,9 +88,7 @@
 			<arg value="zapport=${zap.port}"/>
 			<arg value="debug=true"/>
 			
-			<classpath>
-        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
-			</classpath>
+			<classpath> <fileset dir="testlib"> <include name="zap-api.jar" /> </fileset> </classpath>
 		</java>
 	</target>
 
@@ -108,9 +103,7 @@
 			<arg value="zapport=${zap.port}"/>
 			<arg value="debug=true"/>
 			
-			<classpath>
-        		<fileset dir="testlib"> <include name="zap-api*.jar" /> </fileset>
-			</classpath>
+			<classpath> <fileset dir="testlib"> <include name="zap-api.jar" /> </fileset> </classpath>
 		</java>
 	</target>
 
