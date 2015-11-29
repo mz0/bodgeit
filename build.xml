@@ -26,6 +26,8 @@
 
 <target name="build" depends="compile">
 	<copy toDir="build/site"><fileset dir="WebContent" includes="**/*"/></copy>
+	<mkdir dir="build/site/WEB-INF/lib"/>
+	<copy toDir="build/site/WEB-INF/lib"><fileset dir="lib" includes="**/*.jar"/></copy>
 	<delete file="build/bodgeit.war"/>
 	<delete file="build/site/WEB-INF/web.xml"/>
 	<war destfile="build/bodgeit.war" webxml="meta/web.xml">
